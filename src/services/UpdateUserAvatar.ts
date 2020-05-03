@@ -3,6 +3,7 @@ import path from 'path'
 import fs from 'fs'
 
 import uploadConfig from '../config/upload'
+import AppError from '../errors/AppError'
 import User from '../models/User'
 
 interface Request {
@@ -17,7 +18,7 @@ class UpdateUserAvatar {
     const user = await usersRepository.findOne(user_id)
 
     if (!user) {
-      throw Error('User not authenticated.')
+      throw new AppError('User not authenticated.', 401)
     }
 
     if (user.avatar) {
