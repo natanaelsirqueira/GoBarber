@@ -45,6 +45,7 @@ export class AlterProviderFieldInAppointments1588472568374
       new TableColumn({
         name: 'provider',
         type: 'varchar',
+        isNullable: true,
       }),
     )
   }
