@@ -4,6 +4,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
+import { Link } from 'react-router-dom';
 import logoImg from '../../assets/logo.svg';
 
 import { useAuth } from '../../hooks/AuthContext';
@@ -69,10 +70,10 @@ const SignIn: React.FC = () => {
           <a href="login">Esqueci minha senha</a>
         </Form>
 
-        <a href="create">
+        <Link to="signup">
           <FiLogIn />
           Criar conta
-        </a>
+        </Link>
       </Content>
 
       <Background />
