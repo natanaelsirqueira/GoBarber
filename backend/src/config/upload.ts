@@ -1,8 +1,8 @@
-import multer from 'multer'
-import crypto from 'crypto'
-import path from 'path'
+import multer from 'multer';
+import crypto from 'crypto';
+import path from 'path';
 
-const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp')
+const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
 export default {
   directory: tmpFolder,
@@ -11,10 +11,10 @@ export default {
     destination: tmpFolder,
 
     filename(request, file, callback) {
-      const fileHash = crypto.randomBytes(10).toString('HEX')
-      const fileName = `${fileHash}-${file.originalname}`
+      const fileHash = crypto.randomBytes(10).toString('HEX');
+      const fileName = `${fileHash}-${file.originalname}`;
 
-      return callback(null, fileName)
+      return callback(null, fileName);
     },
   }),
-}
+};
