@@ -5,16 +5,22 @@ import FakeStorageProvider from '@shared/container/providers/StorageProvider/fak
 import UpdateUserAvatarService from './UpdateUserAvatarService';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 
-describe('UpdateUserAvatar', () => {
-  it('should be able to update an user avatar', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const storageProvider = new FakeStorageProvider();
+let usersRepository: FakeUsersRepository;
+let storageProvider: FakeStorageProvider;
+let updateUserAvatar: UpdateUserAvatarService;
 
-    const updateUserAvatar = new UpdateUserAvatarService(
+describe('UpdateUserAvatar', () => {
+  beforeEach(() => {
+    usersRepository = new FakeUsersRepository();
+    storageProvider = new FakeStorageProvider();
+
+    updateUserAvatar = new UpdateUserAvatarService(
       usersRepository,
       storageProvider,
     );
+  });
 
+  it('should be able to update an user avatar', async () => {
     const user = await usersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
@@ -30,15 +36,7 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('should not be able to update the avatar of a non existing user', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const storageProvider = new FakeStorageProvider();
-
-    const updateUserAvatar = new UpdateUserAvatarService(
-      usersRepository,
-      storageProvider,
-    );
-
-    expect(
+    await expect(
       updateUserAvatar.execute({
         user_id: '1',
         filename: 'avatar.jpg',
@@ -47,14 +45,6 @@ describe('UpdateUserAvatar', () => {
   });
 
   it('should delete the old avatar file', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const storageProvider = new FakeStorageProvider();
-
-    const updateUserAvatar = new UpdateUserAvatarService(
-      usersRepository,
-      storageProvider,
-    );
-
     const user = await usersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',

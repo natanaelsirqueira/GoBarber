@@ -5,12 +5,18 @@ import CreateUserService from './CreateUserService';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
-describe('CreateUser', () => {
-  it('should be able to create a user', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const hashProvider = new FakeHashProvider();
-    const createUser = new CreateUserService(usersRepository, hashProvider);
+let usersRepository: FakeUsersRepository;
+let hashProvider: FakeHashProvider;
+let createUser: CreateUserService;
 
+describe('CreateUser', () => {
+  beforeEach(() => {
+    usersRepository = new FakeUsersRepository();
+    hashProvider = new FakeHashProvider();
+    createUser = new CreateUserService(usersRepository, hashProvider);
+  });
+
+  it('should be able to create a user', async () => {
     const user = await createUser.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
@@ -23,10 +29,6 @@ describe('CreateUser', () => {
   });
 
   it('should not be able to create two users with the same email', async () => {
-    const usersRepository = new FakeUsersRepository();
-    const hashProvider = new FakeHashProvider();
-    const createUser = new CreateUserService(usersRepository, hashProvider);
-
     const data = {
       name: 'John Doe',
       email: 'johndoe@example.com',
@@ -35,6 +37,6 @@ describe('CreateUser', () => {
 
     await createUser.execute(data);
 
-    expect(createUser.execute(data)).rejects.toBeInstanceOf(AppError);
+    await expect(createUser.execute(data)).rejects.toBeInstanceOf(AppError);
   });
 });
