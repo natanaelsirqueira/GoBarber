@@ -34,7 +34,7 @@ class ListProviderMonthAvailabilityService {
 
     const daysInMonth = Array.from(
       { length: getDaysInMonth(new Date(year, month - 1)) },
-      (_value, index) => index + 1,
+      (_, index) => index + 1,
     );
 
     const availability = daysInMonth.map(day => {

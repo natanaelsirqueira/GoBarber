@@ -22,6 +22,7 @@ describe('ListProviderMonthAvailability', () => {
       eachHourArray.map(hour =>
         appointmentsRepository.create({
           provider_id: 'user',
+          user_id: 'user',
           date: new Date(2020, 0, 20, hour, 0, 0),
         }),
       ),
@@ -29,11 +30,13 @@ describe('ListProviderMonthAvailability', () => {
 
     await appointmentsRepository.create({
       provider_id: 'user',
+      user_id: 'user',
       date: new Date(2020, 0, 21, 8, 0, 0),
     });
 
     await appointmentsRepository.create({
       provider_id: 'user',
+      user_id: 'user',
       date: new Date(2020, 1, 21, 8, 0, 0),
     });
 
