@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-export default class ResetPasswordService {
+class ResetPasswordService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
@@ -48,3 +48,5 @@ export default class ResetPasswordService {
     await this.usersRepository.save(user);
   }
 }
+
+export default ResetPasswordService;

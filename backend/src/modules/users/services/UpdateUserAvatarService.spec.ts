@@ -38,7 +38,7 @@ describe('UpdateUserAvatar', () => {
   it('should not be able to update the avatar of a non existing user', async () => {
     await expect(
       updateUserAvatar.execute({
-        user_id: '1',
+        user_id: 'non-existing-user-id',
         filename: 'avatar.jpg',
       }),
     ).rejects.toBeInstanceOf(AppError);
