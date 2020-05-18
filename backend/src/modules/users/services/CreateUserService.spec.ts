@@ -1,19 +1,27 @@
 import 'reflect-metadata';
 
 import AppError from '@shared/errors/AppError';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import CreateUserService from './CreateUserService';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
 let usersRepository: FakeUsersRepository;
 let hashProvider: FakeHashProvider;
+let cacheProvider: FakeCacheProvider;
 let createUser: CreateUserService;
 
 describe('CreateUser', () => {
   beforeEach(() => {
     usersRepository = new FakeUsersRepository();
     hashProvider = new FakeHashProvider();
-    createUser = new CreateUserService(usersRepository, hashProvider);
+    cacheProvider = new FakeCacheProvider();
+
+    createUser = new CreateUserService(
+      usersRepository,
+      hashProvider,
+      cacheProvider,
+    );
   });
 
   it('should be able to create a user', async () => {
