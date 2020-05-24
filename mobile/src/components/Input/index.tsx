@@ -57,7 +57,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
-      setValue(ref: any, value) {
+      setValue(fieldRef: any, value) {
         inputValueRef.current.value = value;
         inputRef.current.setNativeProps({ text: value });
       },
@@ -69,7 +69,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
   }, [fieldName, registerField]);
 
   return (
-    <Container isFocused={isFocused}>
+    <Container isFocused={isFocused} hasError={!!error}>
       <Icon
         name={icon}
         size={20}
