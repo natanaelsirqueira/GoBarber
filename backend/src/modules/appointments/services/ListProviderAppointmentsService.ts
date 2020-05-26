@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/protocols/ICacheProvider';
+import { compareAsc } from 'date-fns';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 import Appointment from '../infra/typeorm/entities/Appointment';
 
@@ -38,6 +39,8 @@ class ListProviderAppointmentsService {
         month,
         year,
       });
+
+      appointments = appointments.sort((a, b) => compareAsc(a.date, b.date));
 
       await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
