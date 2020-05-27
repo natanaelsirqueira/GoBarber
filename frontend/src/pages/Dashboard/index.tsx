@@ -6,6 +6,8 @@ import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
 import { FiPower, FiClock } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+
 import logoImg from '../../assets/logo.svg';
 
 import {
@@ -138,7 +140,9 @@ const Dashboard: React.FC = () => {
 
             <div>
               <span>Bem-vindo,</span>
-              <strong>{user.name}</strong>
+              <Link to="profile">
+                <strong>{user.name}</strong>
+              </Link>
             </div>
           </Profile>
 
@@ -186,7 +190,7 @@ const Dashboard: React.FC = () => {
             )}
 
             {morningAppointments.map(appointment => (
-              <Appointment>
+              <Appointment key={appointment.id}>
                 <span>
                   <FiClock />
                   {appointment.formattedHour}
@@ -212,7 +216,7 @@ const Dashboard: React.FC = () => {
             )}
 
             {afternoonAppointments.map(appointment => (
-              <Appointment>
+              <Appointment key={appointment.id}>
                 <span>
                   <FiClock />
                   {appointment.formattedHour}
