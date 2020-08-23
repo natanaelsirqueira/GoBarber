@@ -59,6 +59,7 @@ const SignUp: React.FC = () => {
 
           return;
         }
+        console.log('Error');
 
         addToast({
           type: 'error',
